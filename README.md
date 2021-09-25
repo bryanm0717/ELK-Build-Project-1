@@ -60,28 +60,27 @@ Enable service docker on boot
 Ansible/Install-elk.yml.txt. 
 https://github.com/bryanm0717/ELK-Build-Project-1/blob/main/install-elk.yml
 
-The following screenshot displays the result of running docker ps after successfully configuring the ELK instance.
-
-
 
 Target Machines & Beats
 This ELK server is configured to monitor the following machines:
 
-List of monitored IPs 10.0.0.9, 10.0.0.10 We have installed the following Beats on these machines:
+List of monitored IPs 10.0.0.9, 10.0.0.10. 
+We have installed the following Beats on these machines:
 Filebeat-7.4.0-amd64.deb, Metricbeat These Beats allow us to collect the following information from each machine: Filebeat collects the log files, locations specified regarding traffic. Metricbeat collects metric and statistical information.
 Using the Playbook
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned:
 
-SSH into the control node and follow the steps below:
+1.SSH into the control node and follow the steps below:
 
-Copy the appropriate configuration file (originally modified from pentest.yml) to local ansible container. For example, ELK, filebeat, metricbeat locations.
+2.Copy the appropriate configuration file (originally modified from pentest.yml) to local ansible container. For example, ELK, filebeat, metricbeat locations.
 
-Update the hosts and config files to include the internal webserver IP addresses.
+3.Update the hosts and config files to include the internal webserver IP addresses.
+-Do this by running any text editor (I used nano) and edit the /etc/ansible/hosts file. Uncomment the # before webservers and add in the two webservers that were created.
 
-Run the playbook, and navigate to docker container list to check that the installation worked as expected.
+4.Run the playbook, and navigate to docker container list to check that the installation worked as expected.
+-command for running a playbook: ansible-playbook <etc/ansible/filename.yml>
+5.For ELK, the Install-elk is the playbook and the filebeat and metricbeat both are clearly labeled. Copy to /etc/ansible folder in the ansible container and on each web vm.
 
-For ELK, the Install-elk is the playbook and the filebeat and metricbeat both are clearly labeled. Copy to /etc/ansible folder in the ansible container and on each web vm.
+6.Update the ansible config file to make ansible run the playbook on a specific machine (i.e. filebeat-playbook.yml). ELK will install from the provisioner attach to the container created. There are two configuration files to edit and one will say Intall-elk, filebeat, and metricbeat. Each will have to be edited, run on each vm with the appropriate IP addresses and configuration.
 
-Update the ansible config file to make ansible run the playbook on a specific machine (i.e. filebeat-playbook.yml). ELK will install from the provisioner attach to the container created. There are two configuration files to edit and one will say Intall-elk, filebeat, and metricbeat. Each will have to be edited, run on each vm with the appropriate IP addresses and configuration.
-
-Make sure the ELK server is running by going to http://[your.VM.IP]:5601/app/kibana. This would be the IP address that was added to the config file.
+7.Make sure the ELK server is running by going to http://[your.VM.IP]:5601/app/kibana. This would be the IP address that was added to the config file.
